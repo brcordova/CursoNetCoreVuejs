@@ -1,0 +1,5 @@
+G:\Cursos\SistemaWebAspCoreSqlServerVuejs\ASP Net Core Vuejs\Sistema\Sistemas.Datos\bin\Debug\netcoreapp3.1\Sistemas.Datos.deps.json
+G:\Cursos\SistemaWebAspCoreSqlServerVuejs\ASP Net Core Vuejs\Sistema\Sistemas.Datos\bin\Debug\netcoreapp3.1\Sistemas.Datos.dll
+G:\Cursos\SistemaWebAspCoreSqlServerVuejs\ASP Net Core Vuejs\Sistema\Sistemas.Datos\obj\Debug\netcoreapp3.1\Sistemas.Datos.csprojAssemblyReference.cache
+G:\Cursos\SistemaWebAspCoreSqlServerVuejs\ASP Net Core Vuejs\Sistema\Sistemas.Datos\obj\Debug\netcoreapp3.1\Sistemas.Datos.AssemblyInfoInputs.cache
+G:\Cursos\SistemaWebAspCoreSqlServerVuejs\ASP Net Core Vuejs\Sistema\Sistemas.Datos\obj\Debug\netcoreapp3.1\Sistemas.Datos.AssemblyInfo.cs
