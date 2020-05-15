@@ -1,0 +1,10 @@
+Para agregar Tablas para la Web API, se realizan lo siguientes pasos:
+
+Paso 1 Creación de la entidad.
+
+Para agregar los modelos (tablas) Vg. Articulo
+* Agregar la clase en Sistema.Entidades.Almacen
+* Se agregan los registros de la relación entre tablas, En Articulos se agrega un campo con el nombre de la relacion (Categoria) y en Categoria se agrega un ICollection<Articulo>
+
+Paso 2 Mapeamiento 
+
