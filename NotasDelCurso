@@ -7,4 +7,7 @@ Para agregar los modelos (tablas) Vg. Articulo
 * Se agregan los registros de la relación entre tablas, En Articulos se agrega un campo con el nombre de la relacion (Categoria) y en Categoria se agrega un ICollection<Articulo>
 
 Paso 2 Mapeamiento 
-
+* Se agrega la clase del mapeo que hereda de IEntityTypeConfiguration cargando la libreria using Microsoft.EntityFrameworkCore.Metadata.Builders
+* Se configura el campo Identificador así como las extensiones máximas.
+* Se agrega a DbContext la nueva entidad.
+* 

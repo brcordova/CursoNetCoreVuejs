@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sistema.Entidades.Almacen
 {
@@ -7,6 +8,7 @@ namespace Sistema.Entidades.Almacen
         [Key]
         public int idarticulo { get; set; }
 
+        [ForeignKey("categoria")]
         [Required]
         public int idcategoria { get; set; }
 
@@ -28,6 +30,9 @@ namespace Sistema.Entidades.Almacen
         public bool condicion { get; set; }
 
         public Categoria categoria { get; set; }
+
+        //[ForeignKey("IdCategoria")]
+        //public virtual Categoria Categoria { get; set; }
 
     }
 }

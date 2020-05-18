@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Sistema.Datos;
+using Sistema.Entidades.Almacen;
+using Sistema.Web.Models.Almacen.Categoria;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Sistema.Entidades.Almacen;
-using Sistema.Web.Models.Almacen.Categoria;
-using Sistemas.Datos;
 
 namespace Sistema.Web.Controllers
 {
@@ -116,7 +115,7 @@ namespace Sistema.Web.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch 
             {
 
                 return BadRequest();

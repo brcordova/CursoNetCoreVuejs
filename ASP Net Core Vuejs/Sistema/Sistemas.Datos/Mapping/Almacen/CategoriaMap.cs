@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sistema.Entidades.Almacen;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Sistemas.Datos.Mapping.Almacen
+namespace Sistema.Datos.Mapping.Almacen
 {
     public class CategoriaMap : IEntityTypeConfiguration<Categoria>
     {
