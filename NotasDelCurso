@@ -10,4 +10,16 @@ Paso 2 Mapeamiento
 * Se agrega la clase del mapeo que hereda de IEntityTypeConfiguration cargando la libreria using Microsoft.EntityFrameworkCore.Metadata.Builders
 * Se configura el campo Identificador así como las extensiones máximas.
 * Se agrega a DbContext la nueva entidad.
-* 
+
+Paso 3 Controlador
+* Se crea el controlador de la entidad
+* Para modificar el controlador creado se tienen que crear los modelos auxiliares ViewModel
+* Crear el ActualizarViewModel en la carpeta de asignada para este objetivo, se utilizan DataAnnotations para la validación de la información.
+* Crear el CrearViewModel en la carpeta de asignada para este objetivo.
+
+Para el FrontEnd
+Paso 1 Creaciión del componente.
+* Se crea el componente en la carpeta src/components
+* Se modifica el router (src/router/index.js) para agregar el componente creado.
+  + Se importa el compnente creado.
+  + 

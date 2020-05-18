@@ -4,17 +4,16 @@
       <!-- Tabla CRUD -->
       <v-data-table
         :headers="headers"
-        :items="categorias"
+        :items="articulos"
         :search="search"
         sort-by="nombre"
         class="elevation-1"
       >
         <template v-slot:top>
           <v-toolbar flat color="white">
-            <v-toolbar-title>Categorías</v-toolbar-title>
+            <v-toolbar-title>Artículos</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-
             <v-text-field
               class="text-xs-center"
               v-model="search"
@@ -24,7 +23,6 @@
               hide-details
             ></v-text-field>
             <v-spacer></v-spacer>
-
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" dark class="mb-2" v-on="on">Nuevo</v-btn>
@@ -37,18 +35,40 @@
                 <v-card-text>
                   <v-container>
                     <v-row>
-
-                      <v-col cols="12" sm="12" md="12">
+                      <v-col cols="6" sm="6" md="6">
                         <v-text-field
                           v-model="codigo"
                           label="Codigo"
                         ></v-text-field>
                       </v-col>
 
+                      <v-col cols="6" sm="6" md="6">
+                        <v-select
+                          v-model="idcategoria"
+                          :items="categorias"
+                          label="Categoria"
+                        >
+                        </v-select>
+                      </v-col>
+
                       <v-col cols="12" sm="12" md="12">
                         <v-text-field
                           v-model="nombre"
                           label="Nombre"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="6" sm="6" md="6">
+                        <v-text-field
+                          v-model.number="stock"
+                          label="Stock"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="6" sm="6" md="6">
+                        <v-text-field
+                          v-model.number="precio_venta"
+                          label="Precio de venta"
                         ></v-text-field>
                       </v-col>
 
@@ -86,17 +106,17 @@
             <v-dialog v-model="adModal" max-width="390px">
               <v-card>
                 <v-card-title class="headline" v-if="adAccion == 1"
-                  >¿Activar categoría?</v-card-title
+                  >¿Activar artículo?</v-card-title
                 >
                 <v-card-title class="headline" v-if="adAccion == 2"
-                  >¿Desactivar categoría?</v-card-title
+                  >¿Desactivar artículo?</v-card-title
                 >
 
                 <v-card-text>
                   Estás a punto de
                   <span v-if="adAccion == 1">activar</span>
                   <span v-if="adAccion == 2">desactivar</span>
-                  la categoría: {{ adNombre }}
+                  el siguiente artíulo: {{ adNombre }}
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -126,9 +146,9 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-
           </v-toolbar>
         </template>
+
         <template v-slot:item.condicion="{ item }">
           <div v-if="item.condicion">
             <span class="blue--text">Activo</span>
@@ -137,6 +157,7 @@
             <span class="red--text">Inactivo</span>
           </div>
         </template>
+
         <template v-slot:item.actions="{ item }">
           <td class="justify-center layout px-0">
             <v-icon small class="mr-2" @click="editItem(item)">
@@ -155,6 +176,7 @@
             </template>
           </td>
         </template>
+
         <template v-slot:no-data>
           <v-btn color="primary" @click="listar">Resetear</v-btn>
         </template>
@@ -169,18 +191,27 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    categorias: [],
+    articulos: [],
     dialog: false,
     headers: [
       { text: "Opciones", value: "actions", sortable: false },
+      { text: "Código", value: "codigo", sortable: false },
       { text: "Nombre", value: "nombre" },
+      { text: "Categoria", value: "categoria" },
+      { text: "Stock", value: "stock" },
+      { text: "Precio de venta", value: "precio_venta" },
       { text: "Descripción", value: "descripcion", sortable: false },
       { text: "Estado", value: "condicion", sortable: false },
     ],
     search: "",
     editedIndex: -1,
     id: "",
+    idcategoria: "",
+    categorias: [],
+    codigo: "",
     nombre: "",
+    stock: 0,
+    precio_venta: 0,
     descripcion: "",
     valida: 0,
     validaMensaje: [],
@@ -192,9 +223,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1
-        ? "Nueva categoria"
-        : "Actualizar categoria";
+      return this.editedIndex === -1 ? "Nueva artículo" : "Actualizar artículo";
     },
   },
 
@@ -206,16 +235,33 @@ export default {
 
   created() {
     this.listar();
+    this.select();
   },
 
   methods: {
     listar() {
       let me = this;
       axios
-        .get("api/Categorias/Listar")
+        .get("api/Articulos/Listar")
         .then(function(response) {
           //console.log(response);
-          me.categorias = response.data;
+          me.articulos = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
+    select() {
+      let me = this;
+      var categoriasArray=[];
+      axios
+        .get("api/Categorias/Select")
+        .then(function(response) {
+          categoriasArray = response.data;
+          categoriasArray.map(function(x){
+            me.categorias.push({text: x.nombre,value:x.idcategoria});
+          });
         })
         .catch(function(error) {
           console.log(error);
@@ -223,17 +269,15 @@ export default {
     },
 
     editItem(item) {
-      this.id = item.idcategoria;
+      this.id = item.idarticulo;
+      this.idcategoria = item.idcategoria;
+      this.codigo = item.codigo;
       this.nombre = item.nombre;
+      this.stock = item.stock;
+      this.precio_venta = item.precio_venta;
       this.descripcion = item.descripcion;
       this.editedIndex = 1;
       this.dialog = true;
-    },
-
-    deleteItem(item) {
-      const index = this.categorias.indexOf(item);
-      confirm("Are you sure you want to delete this item?") &&
-        this.categorias.splice(index, 1);
     },
 
     close() {
@@ -245,14 +289,20 @@ export default {
       if (this.validar()) {
         return;
       }
+
       if (this.editedIndex > -1) {
         // Código para Guardar una edición
         let me = this;
         axios
-          .put("api/Categorias/Actualizar", {
-            idcategoria: me.id,
-            nombre: me.nombre,
-            descripcion: me.descripcion,
+          .put("api/Articulos/Actualizar", {
+            
+            'idarticulo':me.id,
+            'idcategoria': me.idcategoria,
+            'codigo': me.codigo,
+            'nombre': me.nombre,
+            'stock': me.stock,
+            'precio_venta': me.precio_venta,
+            'descripcion': me.descripcion
           })
           .then(function(response) {
             me.close();
@@ -265,12 +315,15 @@ export default {
       } else {
         // Código para Guardar
         let me = this;
-        console.log(me.nombre + " ", me.descripcion);
-
+        
         axios
-          .post("api/Categorias/Crear", {
-            nombre: me.nombre,
-            descripcion: me.descripcion,
+          .post("api/Articulos/Crear", {
+            'idcategoria': me.idcategoria,
+            'codigo': me.codigo,
+            'nombre': me.nombre,
+            'stock': me.stock,
+            'precio_venta': me.precio_venta,
+            'descripcion': me.descripcion
           })
           .then(function(response) {
             me.close();
@@ -285,8 +338,13 @@ export default {
 
     limpiar() {
       this.id = "";
+      this.codigo="";
+      this.idcategoria = "";
       this.nombre = "";
+      this.stock = "";
+      this.precio_venta = "";
       this.descripcion = "";
+      this.validaMensaje=[];
       this.editedIndex = -1;
     },
 
@@ -300,6 +358,18 @@ export default {
         );
       }
 
+      if(!this.idcategoria){
+        this.validaMensaje.push("Seleccione una categoria.");
+      }
+
+            if(!this.stock || this.stock == 0){
+        this.validaMensaje.push("Ingrese el stock inicial del artículo.");
+      }
+
+                  if(!this.precio_venta || this.precio_venta == 0){
+        this.validaMensaje.push("Ingrese el precio de venta del artículo.");
+      }
+
       if (this.validaMensaje.length) {
         this.valida = 1;
       }
@@ -309,7 +379,7 @@ export default {
     activarDesactivarMostrar(accion, item) {
       this.adModal = 1;
       this.adNombre = item.nombre;
-      this.adId = item.idcategoria;
+      this.adId = item.idarticulo;
 
       if (accion == 1) {
         this.adAccion = 1;
@@ -328,7 +398,7 @@ export default {
       // Código para Guardar una edición
       let me = this;
       axios
-        .put("api/Categorias/Activar/" + this.adId, {})
+        .put("api/Articulos/Activar/" + this.adId, {})
         .then(function(response) {
           me.adModal = 0;
           me.adAccion = 0;
@@ -344,7 +414,7 @@ export default {
     desactivar() {
       let me = this;
       axios
-        .put("api/Categorias/Desactivar/" + this.adId, {})
+        .put("api/Articulos/Desactivar/" + this.adId, {})
         .then(function(response) {
           me.adModal = 0;
           me.adAccion = 0;

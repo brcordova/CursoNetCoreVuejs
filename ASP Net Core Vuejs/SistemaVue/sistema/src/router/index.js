@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../components/Home.vue';
 import Categoria from '../components/Categoria.vue';
+import Articulo from '../components/Articulo.vue';
 
 
 Vue.use(VueRouter);
@@ -14,6 +15,10 @@ const routes = [{
         path: '/Categoria',
         name: 'categoria',
         component: Categoria
+    }, {
+        path: '/Articulo',
+        name: 'articulo',
+        component: Articulo
     }
 
 ];

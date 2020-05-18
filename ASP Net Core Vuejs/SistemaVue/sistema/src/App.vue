@@ -36,13 +36,13 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{ name: '' }">
+            <v-list-item :to="{ name: 'articulo' }">
               <v-list-item-action>
                 <span class="material-icons">table_chart</span>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
-                  Aticulos
+                  Artículos
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
