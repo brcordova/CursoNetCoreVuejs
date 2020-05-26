@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
 using Sistema.Entidades.Almacen;
@@ -10,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace Sistema.Web.Controllers
 {
+    
+    //[Authorize (Roles ="Administrador, Almacenero")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriasController : ControllerBase
@@ -22,6 +26,7 @@ namespace Sistema.Web.Controllers
         }
 
         // GET: api/Categorias/Listar
+        [EnableCors("Todos")]
         [HttpGet("[action]")]
         public async Task<IEnumerable<CategoriaViewModel>> Listar()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
 using Sistema.Entidades.Almacen;
@@ -19,8 +20,9 @@ namespace Sistema.Web.Controllers
         {
             _context = context;
         }
-
+        
         // GET: api/Articulos/Listar
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpGet("[action]")]
         public async Task<IEnumerable<ArticuloViewModel>> Listar()
         {
@@ -41,7 +43,7 @@ namespace Sistema.Web.Controllers
         }
 
         // GET: api/Articulos/Mostrar/5
-
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpGet("[action]/{id}")]
         public async Task<ActionResult<ArticuloViewModel>> Mostrar([FromRoute] int id)
         {
@@ -68,6 +70,7 @@ namespace Sistema.Web.Controllers
         }
 
         // POST: api/Categorias/Crear
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpPost("[action]")]
         public async Task<ActionResult<Articulo>> Crear(CrearViewModel model)
         {
@@ -105,6 +108,7 @@ namespace Sistema.Web.Controllers
         }
 
         // PUT: api/Articulos/Actualizar
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpPut("[action]")]
         public async Task<IActionResult> Actualizar(ActualizarViewModel model)
         {
@@ -146,6 +150,7 @@ namespace Sistema.Web.Controllers
         }
 
         // PUT: api/Articulos/Activar/id
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Activar([FromRoute] int id)
         {
@@ -178,6 +183,7 @@ namespace Sistema.Web.Controllers
         }
 
         // PUT: api/Articulos/Desactivar/id
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Desactivar([FromRoute] int id)
         {
@@ -210,6 +216,7 @@ namespace Sistema.Web.Controllers
         }
 
         // DELETE: api/Articulos/Eliminar/1
+        //[Authorize(Roles = "Administrador, Almacenero")]
         [HttpDelete("[action]/{id}")]
         public async Task<ActionResult<Categoria>> Eliminar(int id)
         {
